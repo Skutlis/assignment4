@@ -1,6 +1,7 @@
 package no.hvl.dat250.rest.todos;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Todos {
 
@@ -18,6 +19,7 @@ public class Todos {
         }
         todos.add(todo);
         usedIds.add(todo.getId());
+        System.out.println(todos.get(0));
     }
 
     public boolean delete(long id){
@@ -56,12 +58,11 @@ public class Todos {
     }
 
     public long generateUniqueLong(){
-        Random r = new Random();
-        long unique = r.nextLong();
+        long unique = ThreadLocalRandom.current().nextLong(100000000L);
         while (usedIds.contains(unique)){
-            unique = r.nextLong();
+            unique = ThreadLocalRandom.current().nextLong(100000000L);
             if (unique < 0L){ //Don't want negative id's
-                unique *= (-1);
+                unique *= (-1L);
             }
         }
         System.out.println(unique);
